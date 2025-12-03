@@ -2,27 +2,29 @@ with open('input.txt', 'r', encoding='utf-8') as fichier:
     instructions = fichier.read().split()
 
 res = 0
-passe = True
-
 
 for batteries in instructions:
-    maxi1 = 0
-    maxi2 = 0
-    indice = 0
-    for i in range(len(batteries)):
-        if i == len(batteries)-1:
-                if maxi1 == 0:
-                    passe = False
-                    res += maxi1
-                break
-        if int(batteries[i]) > maxi1:
-            maxi1 = int(batteries[i])
+    maxi1 = -1
+    indices = -1
+    
+    # 1. Trouver le max pour les dizaines
+    # On s'arrête avant le dernier chiffre pour laisser de la place au 2ème
+    for i in range(len(batteries) - 1):
+        val = int(batteries[i])
+        if val > maxi1:
+            maxi1 = val
             indices = i
-    if passe:
-        for e in range(indices+1, len(batteries)):
-            if int(batteries[e]) > maxi2:
-                maxi2 = int(batteries[e])
-        res += int(str(maxi1)+str(maxi2))
-    passe = True
+            
+    # 2. Trouver le max pour les unités (après l'indice du premier)
+    maxi2 = 0
+    # Si on a trouvé un premier chiffre valide
+    if indices != -1:
+        for i in range(indices + 1, len(batteries)):
+            val = int(batteries[i])
+            if val > maxi2:
+                maxi2 = val
+        
+        # Calcul mathématique simple
+        res += (maxi1 * 10) + maxi2
 
 print(res)
