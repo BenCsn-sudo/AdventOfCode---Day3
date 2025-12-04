@@ -5,21 +5,21 @@ res = 0
 
 for batteries in instructions:
     maxi1 = -1
-    indices = -1
+    indice = -1
     
-    # 1. Trouver le max pour les dizaines
+    # On trouve le max pour les dizaines
     # On s'arrête avant le dernier chiffre pour laisser de la place au 2ème
     for i in range(len(batteries) - 1):
         val = int(batteries[i])
         if val > maxi1:
             maxi1 = val
-            indices = i
+            indice = i
             
-    # 2. Trouver le max pour les unités (après l'indice du premier)
+    # 2. Trouver le max pour les unités
     maxi2 = 0
     # Si on a trouvé un premier chiffre valide
-    if indices != -1:
-        for i in range(indices + 1, len(batteries)):
+    if indice != -1:
+        for i in range(indice + 1, len(batteries)):
             val = int(batteries[i])
             if val > maxi2:
                 maxi2 = val
